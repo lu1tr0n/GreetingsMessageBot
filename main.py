@@ -36,11 +36,19 @@ class MessageWelcome(telepot.helper.ChatHandler):
 
     # Funcion definida para la interaccion
     def on_chat_message(self, msg):
-
+	# Lenguaje del usuario
+	lenguage = msg['chat']['lenguage_code']
         # ID de Chat
         chat_id = msg['chat']['id']
         # Variable vacia
         command = ''
+
+        # Identificar el idioma del remitente o mensaje del usuario
+        if 'es' in msg['from']['language_code']:
+            print("Idioma Español")
+        
+        if 'en' in msg['from']['language_code']:
+            print("Idioma Inglés")
 
         # Estas en un SuperGrupo
         if msg['chat']['type'] == 'supergroup':
@@ -53,7 +61,7 @@ class MessageWelcome(telepot.helper.ChatHandler):
             #Para el que se fue del Supergrupo
             if 'left_chat_member' in msg and 'left_chat_participant' in msg:
                 bot.sendMessage(chat_id, "Adios compañero @"+ msg['left_chat_member']['username'] +", te recordaremos 😢")
-
+ 
         # Estas en un Grupo
         elif msg['chat']['type'] == 'group':
 
